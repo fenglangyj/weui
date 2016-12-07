@@ -19,6 +19,7 @@ $(function () {
             this._pageAppend = pageAppend;
             return this;
         },
+        //初始化page管理类，①绑定hashchange事件，自动完成页面跳转 ②初始化到当前页面
         init: function () {
             var self = this;
 
@@ -50,6 +51,7 @@ $(function () {
         },
         go: function (to) {
             var config = this._find('name', to);
+            //todo 可以在这儿用ajax加载页面
             if (!config) {
                 return;
             }
@@ -57,7 +59,7 @@ $(function () {
         },
         _go: function (config) {
             this._pageIndex ++;
-
+            //HTML5新特性:修改历史
             history.replaceState && history.replaceState({_pageIndex: this._pageIndex}, '', location.href);
 
             var html = $(config.template).html();
@@ -123,6 +125,7 @@ $(function () {
             }
             return found;
         },
+        //在page中查找对应的
         _find: function (key, value) {
             var page = null;
             for (var i = 0, len = this._configs.length; i < len; i++) {
@@ -135,6 +138,7 @@ $(function () {
         },
         _bind: function (page) {
             var events = page.events || {};
+            console.log(events);
             for (var t in events) {
                 for (var type in events[t]) {
                     this.$container.on(type, t, events[t][type]);
