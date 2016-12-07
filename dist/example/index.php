@@ -24,6 +24,8 @@
 <?PHP include 'tpl_searchbar.php'?>
 </script>
 
+<script type="text/html" id="tpl_toast"><?PHP include "tpl_toast.php"?></script>
+
 <script type="text/html" id="tpl_msg">
     <div class="page">
         <div class="page__hd">
