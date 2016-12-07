@@ -3,6 +3,7 @@
  * Modified by bear on 2016/9/7.
  */
 $(function () {
+    //页面管理对象
     var pageManager = {
         $container: $('#container'),
         _pageStack: [],
@@ -142,7 +143,7 @@ $(function () {
             page.isBind = true;
         }
     };
-
+    //从点击屏幕上的元素到触发元素的 click 事件，移动浏览器会有大约 300 毫秒的等待时间。为什么这么设计呢？ 因为它想看看你是不是要进行双击（double tap）操作。这个函数就是为了解决这个问题。
     function fastClick(){
         var supportTouch = function(){
             try {
@@ -172,6 +173,7 @@ $(function () {
             return this;
         };
     }
+    //图片提前加载
     function preload(){
         $(window).on("load", function(){
             var imgList = [
@@ -185,6 +187,7 @@ $(function () {
             }
         });
     }
+    //解决 Android 手机下输入框获取焦点时, 输入法挡住输入框的bug
     function androidInputBugFix(){
         // .container 设置了 overflow 属性, 导致 Android 手机下输入框获取焦点时, 输入法挡住输入框的 bug
         // 相关 issue: https://github.com/weui/weui/issues/15
@@ -202,6 +205,7 @@ $(function () {
             })
         }
     }
+    //微信接口相关api
     function setJSAPI(){
         var option = {
             title: 'WeUI, 为微信 Web 服务量身设计',
@@ -248,7 +252,9 @@ $(function () {
                 });
             });
         });
+
     }
+    //设置当前应当显示的页面
     function setPageManager(){
         var pages = {}, tpls = $('script[type="text/html"]');
         var winH = $(window).height();
