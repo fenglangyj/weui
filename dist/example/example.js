@@ -254,7 +254,7 @@ $(function () {
         });
 
     }
-    //设置当前应当显示的页面
+    //初始化page
     function setPageManager(){
         var pages = {}, tpls = $('script[type="text/html"]');
         var winH = $(window).height();
@@ -272,8 +272,9 @@ $(function () {
         for (var page in pages) {
             pageManager.push(pages[page]);
         }
-        pageManager
-            .setPageAppend(function($html){
+        //绑定页面添加函数
+        pageManager.setPageAppend(function($html){
+            //确保page__ft按钮显示在最下方
                 var $foot = $html.find('.page__ft');
                 if($foot.length < 1) return;
 
@@ -282,9 +283,10 @@ $(function () {
                 }else{
                     $foot.removeClass('j_bottom');
                 }
-            })
-            .setDefault('home')
-            .init();
+
+            });
+        pageManager.setDefault('home');
+        pageManager.init();
     }
 
     function init(){

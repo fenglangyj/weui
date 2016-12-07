@@ -12,9 +12,7 @@
 
 <div class="container" id="container"></div>
 
-<script type="text/html" id="tpl_home" src="tpl_home.php">
-<?PHP include 'tpl_home.php'?>
-</script>
+<script type="text/html" id="tpl_home"><?PHP include "tpl_home.php"?></script>
 
 <script type="text/html" id="tpl_button">
 </script>
