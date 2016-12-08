@@ -12,6 +12,8 @@ $(function () {
         _defaultPage: null,
         _pageIndex: 1,
         setDefault: function (defaultPage) {
+            console.log('---setDefault begin--');
+            console.log(defaultPage);
             this._defaultPage = this._find('name', defaultPage);
             return this;
         },
@@ -50,14 +52,16 @@ $(function () {
             return this;
         },
         go: function (to) {
+            console.log('----go begin----'+to);
             var config = this._find('name', to);
-            //todo 可以在这儿用ajax加载页面
             if (!config) {
                 return;
             }
             location.hash = config.url;
         },
         _go: function (config) {
+            console.log('----_go begin----');
+            console.log(config);
             this._pageIndex ++;
             //HTML5新特性:修改历史
             history.replaceState && history.replaceState({_pageIndex: this._pageIndex}, '', location.href);
@@ -127,18 +131,55 @@ $(function () {
         },
         //在page中查找对应的
         _find: function (key, value) {
+            console.log('----_find begin---- '+key+' '+value);
             var page = null;
+            var self = this;
             for (var i = 0, len = this._configs.length; i < len; i++) {
                 if (this._configs[i][key] === value) {
                     page = this._configs[i];
                     break;
                 }
             }
+            if(!page){
+                //在这儿用ajax加载页面
+                weui.toast('开始加载');
+                var name = value.replace(/#/, '');
+                console.log('页面缓存不存在 ajax get '+ name);
+                $.ajax({
+                    type: "GET",
+                    url: name+'.php',
+                    async: false,
+                    //data: "name=John&location=Boston",
+                    success: function(msg){
+                        var script = document.createElement("script");
+                        script.setAttribute("type", "text/html");
+                        script.setAttribute("id", "tpl_" + name);
+                        script.innerHTML = msg;
+                        document.documentElement.appendChild(script);
+                        page = {
+                            name: name,
+                            url: '#' + name,
+                            template: '#' + script.id
+                        };
+                        self.push(page);
+                    },
+                    error:function (XMLHttpRequest, textStatus, errorThrown) {
+                        console.log(XMLHttpRequest);
+                        if(XMLHttpRequest.start==404){
+                            console.log('显示404页面');
+                        }
+                        //weui.toast(textStatus);
+                    }
+                });
+            }
+            console.log(page);
             return page;
         },
         _bind: function (page) {
+            console.log('----_bind begin----');
+            console.log(page);
+
             var events = page.events || {};
-            console.log(events);
             for (var t in events) {
                 for (var type in events[t]) {
                     this.$container.on(type, t, events[t][type]);
@@ -297,7 +338,7 @@ $(function () {
         preload();
         fastClick();
         androidInputBugFix();
-        setJSAPI();
+        //setJSAPI();
         setPageManager();
 
         window.pageManager = pageManager;
