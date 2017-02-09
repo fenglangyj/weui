@@ -20,9 +20,9 @@
 
 </script>
 
-<script type="text/html" id="tpl_searchbar">
+
 <?PHP include 'tpl_searchbar.php'?>
-</script>
+
 
 <script type="text/html" id="tpl_toast"><?PHP include "tpl_toast.php"?></script>
 

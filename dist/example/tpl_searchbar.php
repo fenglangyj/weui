@@ -1,3 +1,4 @@
+<script type="text/html" id="tpl_searchbar">
 <div class="page">
     <div class="page__bd">
         <div class="weui-search-bar" id="searchBar">
@@ -90,5 +91,7 @@
         },500);
 
     });
+
+</script>
 
 </script>

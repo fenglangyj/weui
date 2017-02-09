@@ -1,6 +1,6 @@
 <div class="page">
     <div class="page__hd">
-        <a href="#tpl_picker" class="weui-btn weui-btn_primary" >测试</a>
+        <a href="#tpl_picker/士大夫" class="weui-btn weui-btn_primary" >测试</a>
     </div>
     <div class="page__bd page__bd_spacing">
         <ul>
